@@ -1,0 +1,470 @@
+:root {
+  --color-bg: #faf6ee;
+  --color-surface: #ffffff;
+  --color-ink: #2b2420;
+  --color-ink-soft: #6b5d4f;
+  --color-primary: #1c2e4a;   /* ネイビー */
+  --color-primary-dark: #101b2e;
+  --color-accent: #c9a227;    /* 金 */
+  --color-border: #e8dfd0;
+  --shadow-card: 0 2px 10px rgba(43, 36, 32, 0.08);
+  --shadow-elevated: 0 8px 30px rgba(43, 36, 32, 0.18);
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 40px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: #fff;
+  padding: 18px 16px 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.site-header__title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-align: center;
+  font-weight: 600;
+}
+
+.site-header__subtitle {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- 検索・フィルター ---------- */
+.controls {
+  padding: 14px 16px 4px;
+  background: var(--color-bg);
+  position: sticky;
+  top: 64px;
+  z-index: 15;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+.chip {
+  flex: 0 0 auto;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-ink-soft);
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.chip.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.controls-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 2px 10px;
+}
+
+.result-count {
+  font-size: 12px;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+.clear-filters {
+  flex: 0 0 auto;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(201, 162, 39, 0.35);
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.clear-filters:active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(0.96);
+  box-shadow: none;
+}
+
+/* ---------- 商品グリッド ---------- */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .catalog-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .catalog-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.card:active {
+  transform: scale(0.97);
+}
+
+.card__image-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.card__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.card__body {
+  padding: 10px 10px 12px;
+}
+
+.card__name {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0 0 6px;
+  color: var(--color-ink);
+  min-height: 2.6em;
+}
+
+.card__price {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 6px;
+  row-gap: 2px;
+  align-items: baseline;
+  justify-content: start;
+  margin: 0;
+}
+
+.card__price .price-row {
+  display: contents;
+}
+
+.card__price .price-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.card__price .price-label--regular {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.card__price .price-label--member {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--color-accent);
+  color: #fff;
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.card__price .price-tbd {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+.card__meta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--color-ink-soft);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-ink-soft);
+  font-size: 14px;
+}
+
+/* ---------- 詳細モーダル ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 15, 10, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 20px 20px 0 0;
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(20px);
+  transition: transform 0.25s ease;
+}
+
+.modal-overlay.is-open .modal {
+  transform: translateY(0);
+}
+
+@media (min-width: 640px) {
+  .modal-overlay {
+    align-items: center;
+  }
+  .modal {
+    border-radius: 20px;
+  }
+}
+
+.modal__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.modal__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__body {
+  padding: 18px 20px 24px;
+}
+
+.modal__name {
+  margin: 0 0 6px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.modal__price {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 10px;
+  row-gap: 4px;
+  align-items: baseline;
+  justify-content: start;
+  margin: 0 0 12px;
+}
+
+.modal__price .price-row {
+  display: contents;
+}
+
+.modal__price .price-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.modal__price .price-label--regular {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.modal__price .price-label--member {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.modal__price .price-tbd {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+.modal__tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.modal__tags span {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-ink-soft);
+}
+
+.modal__description {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--color-ink-soft);
+  margin: 0 0 20px;
+}
+
+.modal__contact {
+  display: block;
+  text-align: center;
+  padding: 13px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+.modal__contact:active {
+  background: var(--color-primary-dark);
+}
+
+/* ---------- ページトップへ戻るボタン ---------- */
+.scroll-top {
+  position: fixed;
+  right: 16px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-accent);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-elevated);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 30;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-top:active {
+  background: var(--color-primary-dark);
+}
