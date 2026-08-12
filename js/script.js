@@ -156,13 +156,15 @@
     renderGrid();
   });
 
-  scrollTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  if (scrollTop) {
+    scrollTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-  window.addEventListener("scroll", () => {
-    scrollTop.classList.toggle("is-visible", window.scrollY > 400);
-  });
+    window.addEventListener("scroll", () => {
+      scrollTop.classList.toggle("is-visible", window.scrollY > 400);
+    });
+  }
 
   renderChips();
   renderGrid();
