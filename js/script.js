@@ -9,7 +9,7 @@
 
   let activeColors = new Set();
 
-  const colors = Array.from(new Set(FURISODE_ITEMS.flatMap((item) => item.colors)));
+  const colors = Array.from(new Set(HAKAMA_ITEMS.flatMap((item) => item.colors)));
 
   function formatPrice(price) {
     return "¥" + price.toLocaleString("ja-JP");
@@ -60,7 +60,7 @@
   }
 
   function getFilteredItems() {
-    return FURISODE_ITEMS.filter((item) => {
+    return HAKAMA_ITEMS.filter((item) => {
       return activeColors.size === 0 || item.colors.some((color) => activeColors.has(color));
     });
   }
@@ -72,13 +72,13 @@
 
   function renderGrid() {
     const items = getFilteredItems();
-    resultCount.textContent = items.length + "件の振袖";
+    resultCount.textContent = items.length + "件の袴";
     grid.innerHTML = "";
 
     if (items.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
-      empty.textContent = "該当する振袖が見つかりませんでした。";
+      empty.textContent = "該当する袴が見つかりませんでした。";
       grid.appendChild(empty);
       return;
     }
@@ -134,7 +134,7 @@
     const contactLink = document.getElementById("modalContact");
     contactLink.href =
       "mailto:info@example.com?subject=" +
-      encodeURIComponent("【振袖カタログ】" + item.name + " について問い合わせ");
+      encodeURIComponent("【袴カタログ】" + item.name + " について問い合わせ");
 
     modalOverlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
