@@ -131,11 +131,6 @@
       tagsWrap.appendChild(span);
     });
 
-    const contactLink = document.getElementById("modalContact");
-    contactLink.href =
-      "mailto:info@example.com?subject=" +
-      encodeURIComponent("【袴カタログ】" + item.name + " について問い合わせ");
-
     modalOverlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
   }
