@@ -122,7 +122,11 @@
     };
     document.getElementById("modalName").textContent = item.name;
     document.getElementById("modalPrice").innerHTML = buildPriceHTML(item);
-    document.getElementById("modalDescription").textContent = item.description;
+
+    const descriptionEl = document.getElementById("modalDescription");
+    const hasDescription = item.description && item.description !== "準備中";
+    descriptionEl.textContent = hasDescription ? item.description : "";
+    descriptionEl.style.display = hasDescription ? "" : "none";
 
     const tagsWrap = document.getElementById("modalTags");
     tagsWrap.innerHTML = "";
@@ -158,26 +162,34 @@
     });
   }
 
-  let lastScrollY = window.scrollY;
+  const COLLAPSE_AT = 200;
+  const EXPAND_AT = 100;
+  let ticking = false;
 
-  window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
+  function handleScroll() {
+    const currentScrollY = Math.max(0, window.scrollY);
 
     if (scrollTop) {
       scrollTop.classList.toggle("is-visible", currentScrollY > 400);
     }
 
     if (controls) {
-      if (currentScrollY <= 80) {
-        controls.classList.remove("is-collapsed");
-      } else if (currentScrollY > lastScrollY) {
+      if (currentScrollY > COLLAPSE_AT) {
         controls.classList.add("is-collapsed");
-      } else if (currentScrollY < lastScrollY) {
+      } else if (currentScrollY < EXPAND_AT) {
         controls.classList.remove("is-collapsed");
       }
+      // EXPAND_AT〜COLLAPSE_AT の間は現状維持（細かい揺れ戻しで切り替わらないようにする）
     }
 
-    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(handleScroll);
+    }
   });
 
   renderChips();
