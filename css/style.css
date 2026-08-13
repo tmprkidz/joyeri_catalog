@@ -434,6 +434,14 @@ img {
   background: var(--color-primary-dark);
 }
 
+.modal__contact-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  text-align: center;
+}
+
 /* ---------- ページトップへ戻るボタン ---------- */
 .scroll-top {
   position: fixed;
