@@ -6,6 +6,7 @@
   const modalOverlay = document.getElementById("modalOverlay");
   const modalClose = document.getElementById("modalClose");
   const scrollTop = document.getElementById("scrollTop");
+  const controls = document.getElementById("controls");
 
   let activeColors = new Set();
 
@@ -155,11 +156,29 @@
     scrollTop.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-
-    window.addEventListener("scroll", () => {
-      scrollTop.classList.toggle("is-visible", window.scrollY > 400);
-    });
   }
+
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    if (scrollTop) {
+      scrollTop.classList.toggle("is-visible", currentScrollY > 400);
+    }
+
+    if (controls) {
+      if (currentScrollY <= 80) {
+        controls.classList.remove("is-collapsed");
+      } else if (currentScrollY > lastScrollY) {
+        controls.classList.add("is-collapsed");
+      } else if (currentScrollY < lastScrollY) {
+        controls.classList.remove("is-collapsed");
+      }
+    }
+
+    lastScrollY = currentScrollY;
+  });
 
   renderChips();
   renderGrid();

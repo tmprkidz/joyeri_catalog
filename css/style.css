@@ -64,11 +64,23 @@ img {
 
 /* ---------- 検索・フィルター ---------- */
 .controls {
-  padding: 14px 16px 4px;
   background: var(--color-bg);
   position: sticky;
   top: 64px;
   z-index: 15;
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.controls.is-collapsed {
+  grid-template-rows: 0fr;
+}
+
+.controls__inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 14px 16px 4px;
 }
 
 .chip-row {
